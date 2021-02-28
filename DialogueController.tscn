@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://DialogueController.gd" type="Script" id=1]
+[ext_resource path="res://dialogue_box.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Text Animation"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[node name="DialogueController" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.396851
+margin_bottom = -0.396851
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Box" type="NinePatchRect" parent="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -275.0
+margin_top = -140.0
+margin_right = 275.0
+margin_bottom = -82.0
+texture = ExtResource( 2 )
+patch_margin_left = 11
+patch_margin_top = 11
+patch_margin_right = 11
+patch_margin_bottom = 11
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Box"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 5.0
+margin_right = -10.0
+margin_bottom = -5.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="Control/Box/MarginContainer"]
+margin_right = 530.0
+margin_bottom = 48.0
+size_flags_vertical = 3
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "What the fuck is this godot ui stuff..."
+autowrap = true
+percent_visible = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Box/MarginContainer/Text"]
+"anims/Text Animation" = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Control/Box/MarginContainer/Text"]
+[connection signal="dialogue_interact" from="." to="." method="_on_Dialogue_dialogue_interact"]
